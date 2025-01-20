@@ -1,11 +1,11 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import { authRouter } from './routes/auth';
-import { timeEntriesRouter } from './routes/timeEntries';
-import { locationRouter } from './routes/locations';
-import { errorHandler } from './middleware/errorHandler';
-import { authenticate } from './middleware/authenticate';
+import { authRouter } from './routes/auth.js';
+import { timeEntriesRouter } from './routes/timeEntries.js';
+import { locationRouter } from './routes/locations.js';
+import { errorHandler } from './middleware/errorHandler.js';
+import { authenticate } from './middleware/authenticate.js';
 
 dotenv.config();
 

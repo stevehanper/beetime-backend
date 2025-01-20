@@ -1,8 +1,8 @@
 import { Router } from 'express';
 import { z } from 'zod';
-import { prisma } from '../db';
-import { validateRequest } from '../middleware/validateRequest';
-import { toNSWTime, fromNSWTime } from '../../utils/dateTime';
+import { prisma } from '../db.js';
+import { validateRequest } from '../middleware/validateRequest.js';
+import { toNSWTime, fromNSWTime } from '../../utils/dateTime.js';
 
 const router = Router();
 
@@ -36,12 +36,12 @@ router.get('/', async (req, res) => {
   });
   
   // NSW 시간대로 변환하여 응답
-  const formattedEntries = timeEntries.map(entry => ({
+  const formattedEntries = timeEntries.map((entry: any) => ({
     ...entry,
     date: toNSWTime(entry.date),
     clockIn: toNSWTime(entry.clockIn),
     clockOut: entry.clockOut ? toNSWTime(entry.clockOut) : null,
-    breaks: entry.breaks.map(breakRecord => ({
+    breaks: entry.breaks.map((breakRecord: any) => ({
       ...breakRecord,
       startTime: toNSWTime(breakRecord.startTime),
       endTime: breakRecord.endTime ? toNSWTime(breakRecord.endTime) : null

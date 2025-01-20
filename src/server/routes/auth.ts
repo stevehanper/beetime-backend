@@ -1,11 +1,11 @@
 import { Router } from 'express';
 import { z } from 'zod';
 import bcrypt from 'bcryptjs';
-import { prisma } from '../db';
-import { validateRequest } from '../middleware/validateRequest';
+import { prisma } from '../db.js';
+import { validateRequest } from '../middleware/validateRequest.js';
 import jwt from 'jsonwebtoken';
 import { OAuth2Client } from 'google-auth-library';
-import { authenticate } from '../middleware/authenticate';
+import { authenticate } from '../middleware/authenticate.js';
 
 const router = Router();
 
@@ -50,7 +50,7 @@ router.post('/signup', validateRequest(signupSchema), async (req, res) => {
     }
 
     // 3. 트랜잭션 시작 - User 생성과 LocationUser 연결을 동시에 처리
-    const result = await prisma.$transaction(async (tx) => {
+    const result = await prisma.$transaction(async (tx: any) => {
       // 3-1. 비밀번호 해시화 후 사용자 정보 생성
       const hashedPassword = await bcrypt.hash(password, 10);
       const user = await tx.user.create({
@@ -218,7 +218,7 @@ router.put('/update-user-info', authenticate, async (req, res) => {
     const { userId, name, locationId } = req.body;
 
     // 1. 트랜잭션 시작 - 사용자 정보 업데이트와 LocationUser 생성을 동시에 처리
-    const result = await prisma.$transaction(async (tx) => {
+    const result = await prisma.$transaction(async (tx: any) => {
        // 1-1. 사용자 정보 업데이트
       const updatedUser = await tx.user.update({
         where: { id: userId },
